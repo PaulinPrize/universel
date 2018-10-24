@@ -1,0 +1,49 @@
+/* Modifier le fond d'écran de login et register 
+.login-page, .register-page{
+	
+}*/
+/*
+.login-logo a, .register-logo a{
+	color:yellow;
+	font-weight:bold;
+}*/
+/* Style appliqué au message se trouvant dans login-box et register-box 
+.login-box-msg, .register-box-msg{
+	color:black;
+}
+.auth-links a{
+	color:black;
+}
+.auth-links a:hover{
+	color:yellow;
+}
+.boutonConnexion, .boutonEnregistrement, .boutonReinitialisation{
+	background-color:yellow;
+	border-color:yellow;
+}
+.boutonConnexion:hover, .boutonEnregistrement:hover, .boutonReinitialisation:hover{
+	background-color:#DA70D6;
+	border-color:#DA70D6;
+}*/
+#content {
+	margin:20px 0px 50px 0px;
+	background-color:#fff;
+	border-top:4px #e7eaec solid;
+}
+#content header{
+	border-bottom:1px #f3f3f4 solid;
+	padding:10px 0px;
+}
+.titre_page{
+	font-size:16px;
+	font-weight:bold;
+	padding:0px 0px 0px 20px;
+	margin:0px;
+}
+.content-inner{
+	padding:20px;
+}
+.form-wrapper{
+	background-color:#eee;
+	padding:20px;
+}
