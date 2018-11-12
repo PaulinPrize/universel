@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Caffeinated\Shinobi\Models\Role; 
 use Response;
+use Image;
 
 class UserController extends Controller
 {
@@ -88,16 +89,22 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    /* Fonction qui permet de modifier le profil de l'utilisateur */
+    /* Fonction qui permet d'afficher le profil d'un utilisateur */
     public function profil(){
-        $id=Auth::user()->id;
-        $user = $this->userRepository->getById($id);
-        return view('user/profil', compact('user'));
+        return view('user/profil', array('user' => Auth::user()));
     }
     /* Fonction qui permet de modifier le profil de l'utilisateur */
-    public function userUpdateProfil(UserUpdateProfil $request, $id){
-
-        return view('user/profil');
+    public function userUpdateProfil(Request $request){
+        if($request -> hasFile('photo')){
+            $photo = $request->file('photo');
+            $filename = time() . '.' . $photo->getClientOriginalExtension();
+            $nom = str_random(10) . '.' . $filename;
+            Image::make($photo)->resize(300,300)->save(public_path('/uploads/avatars/ . $nom')->('jpg',75));
+            $user = Auth::user();
+            $user->photo = $nom;
+            $user->save();
+        }
+        return view('user/profil', array('user' => Auth::user()));
     }
 
     /* Fonction qui permet de modifier le mot de passe de l'utilisateur */
