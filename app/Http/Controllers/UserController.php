@@ -93,13 +93,14 @@ class UserController extends Controller
     public function profil(){
         return view('user/profil', array('user' => Auth::user()));
     }
+    
     /* Fonction qui permet de modifier le profil de l'utilisateur */
     public function userUpdateProfil(Request $request){
-        if($request -> hasFile('photo')){
+        if($request ->hasFile('photo')){
             $photo = $request->file('photo');
             $filename = time() . '.' . $photo->getClientOriginalExtension();
             $nom = str_random(10) . '.' . $filename;
-            Image::make($photo)->resize(300,300)->save(public_path('/uploads/avatars/ . $nom')->('jpg',75));
+            Image::make($photo)->resize(300,300)->save(public_path('/img/avatars/' . $nom));
             $user = Auth::user();
             $user->photo = $nom;
             $user->save();

@@ -27,25 +27,12 @@
             <table>
                 <tr>
                     <td>
-                        @can('user.edit')
-                            {!! link_to_route('user.edit', 'Modifier', [$user->id], ['class' => 'btn btn-md btn-info ']) !!}
-                        @endcan
-                    </td>
-                    <td>
                         @can('user.index')
-                            {!! link_to_route('user.index', 'Retour à la liste', [$user->id], ['class' => 'btn btn-md btn-warning ']) !!}
-                        @endcan
-                    </td>
-                    <td>
-                        @can('user.destroy')
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['user.destroy',   $user->id]]) !!}
-                                {!! Form::submit('Supprimer', ['class' => 'btn btn-md btn-danger', 'onclick' => 'return confirm(\'Vraiment supprimer cet utilisateur ?\')']) !!}
-                            {!! Form::close() !!}
+                            {!! link_to_route('user.index', 'Retourner à la liste', [$user->id], ['class' => 'btn btn-md btn-warning ']) !!}
                         @endcan
                     </td>
                 </tr>
             </table>
-            
         </div>
         <div class="col-sm-3">
             <br>
@@ -53,7 +40,7 @@
                 <div class="panel-heading text-center">Photo</div>
                 <div class="panel-body">
                     <div class="thumbnail">
-                        <img src="{{asset('img/'.$user->photo.'')}}" class="img-square" style="height:225px;width:225px;">
+                        <img src="{{asset('img/avatars/'.$user->photo.'')}}" class="img-square" style="height:225px;width:225px;">
                     </div>
                 </div>
             </div>

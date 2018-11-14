@@ -13,13 +13,14 @@ class RoleController extends Controller
     protected $roleRepository;
     protected $nbrPerPage = 5;
 
+    /* Constructeur */
     public function __construct(RoleRepository $roleRepository)
     {
         $this->middleware('auth');
         $this->roleRepository = $roleRepository;
     }
     /**
-     * Display a listing of the resource.
+     * Fonction qui permet d'afficher la liste des rôles.
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,7 +32,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Fonction qui permet de créer un nouveau rôle.
      *
      * @return \Illuminate\Http\Response
      */
@@ -42,7 +43,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Fonction qui permet d'enregistrer un rôle.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -55,7 +56,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Fonction qui permet d'afficher un rôle.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -68,7 +69,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Fonction qui permet d'afficher le formulaire de modification des rôles.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -81,7 +82,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Fonction qui permet de modifier un rôle.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -96,7 +97,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Fonction qui permet de supprimer un rôle.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

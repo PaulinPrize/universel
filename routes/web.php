@@ -74,7 +74,7 @@ Route::group(['middleware' => 'revalidate'], function(){
 		Route::get('profil', 'UserController@profil')->name('profil')
 		->middleware('permission:profil');
 
-		Route::post('profil', 'UserController@userUpdateProfil')->name('profil')
+		Route::POST('profil', 'UserController@userUpdateProfil')->name('profil')
 		->middleware('permission:profil');
 
 		Route::get('password','UserController@changePassword')->name('password')
