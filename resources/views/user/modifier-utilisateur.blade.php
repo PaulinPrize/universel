@@ -76,7 +76,7 @@
                 <div class="panel-heading text-center">Photo</div>
     			<div class="panel-body">
     				<div class="thumbnail">
-        				<img src="{{asset('img/'.Auth::user()->photo.'')}}" class="img-square" style="height:225px;width:225px;">
+        				<img src="{{asset('img/avatars/'.$user->photo.'')}}" class="img-square" style="height:225px;width:225px;">
     				</div>
     			</div>
     		</div>
