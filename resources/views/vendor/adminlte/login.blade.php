@@ -18,7 +18,27 @@
             <p class="login-box-msg">{{ trans('adminlte::adminlte.login_message') }}</p>
             <form action="{{ url(config('adminlte.login_url', 'login')) }}" method="post">
                 {!! csrf_field() !!}
-
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a href="login/facebook" class="btn btn-primary btn-block btn-flat">
+                            <i class="fa fa-facebook-f"></i> Se connecter avec Facebook
+                        </a>
+                    </div>
+                </div></br>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a href="login/github" class="btn btn-default btn-block btn-flat">
+                            <i class="fa fa-github"></i> Se connecter avec GitHub
+                        </a>
+                    </div>
+                </div></br>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a href="login/google" class="btn btn-danger btn-block btn-flat">
+                            <i class="fa fa-google"></i> Se connecter avec Google
+                        </a>
+                    </div>
+                </div></br>
                 <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
                     <input type="email" name="email" class="form-control" value="{{ old('email') }}"
                            placeholder="{{ trans('adminlte::adminlte.email') }}">

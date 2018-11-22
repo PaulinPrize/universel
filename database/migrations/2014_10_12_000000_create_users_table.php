@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('photo');
             $table->string('telephone')->nullable();
+            $table->string('provider_id')->nullable();
         });
     }
 

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use DB;
+use App\User;
+use Socialite;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -37,11 +40,96 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    public function update_cover($cover,$token)
+    
+    /**
+     * Rediriger l'utilisateur vers la page d'authentification de Facebook.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToFacebook()
     {
-        DB::table('users')
-            ->where('id', $token)
-            ->update(['photo' => $cover]);
+        return Socialite::driver('facebook')->redirect();
+    }   
+
+    /**
+     * Obtenir les informations utilisateur de Facebook.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleFacebookCallback()
+    {
+        $facebookUser = Socialite::driver('facebook')->user();
+
+        $user = User::where('provider_id', $facebookUser->getId())->first();
+
+        if(!$user){
+            // Ajouter l'utilisateur à la base de données
+            $user = User::create([
+                'email' => $facebookUser->getEmail(),
+                'name' => $facebookUser->getName(),
+                'provider_id' => $facebookUser->getId(),
+                'photo' => 'images.png',
+                'password' => bcrypt('1234'),
+            ]);
+        }
+  
+        // Connecter l'utilisateur
+        Auth::login($user, true);
+
+        return redirect($this->redirectTo);
+    }
+
+    // Rediriger l'utilisateur vers la page d'authentification de GitHub
+    public function redirectToGithub(){
+        return Socialite::driver('github')->redirect();
+    }
+
+    // Obtenir les informations utilisateur de GitHub
+    public function handleGithubCallback()
+    {
+        $githubUser = Socialite::driver('github')->user();
+
+        $user = User::where('provider_id', $githubUser->getId())->first();
+        if(!$user){
+            // Ajouter l'utilisateur à la base de données
+            $user = User::create([
+                'email' => $githubUser->getEmail(),
+                'name' => $githubUser->getName(),
+                'provider_id' => $githubUser->getId(),
+                'photo' => 'images.png',
+                'password' => bcrypt('1234'),
+            ]);
+        }
+
+        // Connecter l'utilisateur
+        Auth::login($user, true);
+
+        return redirect($this->redirectTo);
+    }
+
+    // Rediriger l'utilisateur vers la page d'authentification de Google
+    public function redirectToGoogle(){
+        return Socialite::driver('google')->redirect();
+    }
+
+    // Obtenir les informations utilisateur de Google
+    public function handleGoogleCallback()
+    {
+        $googleUser = Socialite::driver('google')->user();
+        $user = User::where('provider_id', $googleUser->getId())->first();
+        if(!$user){
+            // Ajouter l'utilisateur à la base de données
+            $user = User::create([
+                'email' => $googleUser->getEmail(),
+                'name' => $googleUser->getName(),
+                'provider_id' => $googleUser->getId(),
+                'photo' => 'images.png',
+                'password' => bcrypt('1234'),
+            ]);
+        }
+        // Connecter l'utilisateur
+        Auth::login($user, true);
+
+        return redirect($this->redirectTo);
     }
 }
