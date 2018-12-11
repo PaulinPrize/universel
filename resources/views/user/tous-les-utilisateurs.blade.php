@@ -23,7 +23,7 @@
                             <th>Nom</th>
                             <th>Email</th>
                             <th>Date de création</th>
-                            <th>Rôle</th>
+                            <th>Date de modification</th>
                             <th>Etat</th>
                             <th colspan="3">&nbsp;</th>
                         </tr>
@@ -35,7 +35,7 @@
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->diffForHumans() }}</td>
-                                <td>{{$user->role}}</td>
+                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->updated_at)->diffForHumans() }}</td>
                                 <td>
                                     @if($user->isOnline())
                                         <i class="fa fa-circle text-success"></i> En ligne

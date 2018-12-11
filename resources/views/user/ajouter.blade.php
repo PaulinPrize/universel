@@ -1,7 +1,5 @@
 @extends('adminlte::page')
 
-<link rel="stylesheet" href="{{ asset('css/admin_costom.css') }}">
-
 @section('content')
 <div>
     @if (session('status'))
@@ -57,10 +55,6 @@
         </div>
     </div>
 </div>
-@endsection
-    
-@section('js')
-    <script type="text/javascript"></script>
 @endsection
 
 @section('css')

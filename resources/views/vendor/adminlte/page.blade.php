@@ -3,6 +3,7 @@
 @section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+          <link rel="stylesheet" href="{{ asset('css/admin_costom.css') }}">
     @stack('css')
     @yield('css')
 @stop
@@ -14,7 +15,7 @@
 ][config('adminlte.layout')] : '') . (config('adminlte.collapse_sidebar') ? ' sidebar-collapse ' : ''))
 
 @section('body')
-    <div class="wrapper">
+    <div class="wrapper" style="width: 100%;min-height: 100%;height: auto !important;position: absolute;">
         <!-- Main Header -->
         <header class="main-header">
             @if(config('adminlte.layout') == 'top-nav')

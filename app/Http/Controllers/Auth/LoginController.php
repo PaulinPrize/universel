@@ -29,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'tableau-de-bord';
+    protected $redirectTo = 'user/tableau-de-bord';
 
     /**
      * Create a new controller instance.

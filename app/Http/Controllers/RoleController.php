@@ -52,7 +52,7 @@ class RoleController extends Controller
     {
         $role = $this->roleRepository->store($request->all());
         $role->permissions()->sync($request->get('permissions'));
-        return redirect('role');
+        return redirect('role/index');
     }
 
     /**
@@ -93,7 +93,7 @@ class RoleController extends Controller
         $role = $this->roleRepository->getById($id);
         $this->roleRepository->update($id, $request->all());
         $role->permissions()->sync($request->get('permissions'));
-        return redirect('role');
+        return redirect('role/index');
     }
 
     /**

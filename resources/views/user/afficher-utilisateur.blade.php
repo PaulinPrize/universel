@@ -20,7 +20,6 @@
                         <p>Date de création : {{ $user->created_at }}</p>
                         <p>Dernière modification : {{ $user->updated_at }}</p>
                         <p>Téléphone : {{ $user->telephone }}</p>
-                        <p>Rôle : {{ $user->role }}</p>
                     </div>
                 </div>
             </div>

@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Caffeinated\Shinobi\Models\Role; 
+use Illuminate\Support\Facades\Hash;
 use Response;
 use Image;
+use App\User;
+
 
 class UserController extends Controller
 {
@@ -54,7 +58,7 @@ class UserController extends Controller
     /* Enregistrer un nouvel utilisateur */
     public function store(UserCreateRequest $request){
         $user = $this->userRepository->store($request->all());
-        return redirect('user');/*->with('status','créé') ou ->withOk("L'utilisateur " . $user->name . " a été créé.")*/
+        return redirect('user/index');/*->with('status','créé') ou ->withOk("L'utilisateur " . $user->name . " a été créé.")*/
     }
 
     /* Afficher les informations sur un utilisateur */
@@ -79,7 +83,7 @@ class UserController extends Controller
         $user = $this->userRepository->getById($id);
         $this->userRepository->update($id, $request->all());
         $user->roles()->sync($request->get('roles'));
-        return redirect('user');
+        return redirect('user/index');
     }
 
     /* Supprimer un utilisateur */
@@ -93,7 +97,18 @@ class UserController extends Controller
     public function profil(){
         return view('user/profil', array('user' => Auth::user()));
     }
-    
+
+    public function profilUpdate(Request $request){
+        
+        $id = Auth::user()->id;
+        $user = User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->telephone = $request->input('telephone');
+            
+        $user->save();
+        return view('user/profil', array('user' => Auth::user()));
+    }
+
     /* Fonction qui permet de modifier le profil de l'utilisateur */
     public function userUpdateProfil(Request $request){
         if($request ->hasFile('photo')){
@@ -108,10 +123,28 @@ class UserController extends Controller
         return view('user/profil', array('user' => Auth::user()));
     }
 
-    /* Fonction qui permet de modifier le mot de passe de l'utilisateur */
-    public function changePassword(){
-        
-        
+    /* Fonction qui permet d'afficher le formulaire de modification du mot de passe */
+    public function password(){
         return view('user/password');
+    }
+
+    // Fonction qui permet de modifier le mot de passe de l'utilisateur 
+    public function changePassword(ChangePasswordRequest $request){
+
+        $oldPassword = $request->input('oldPassword');
+        $password = $request->input('password');
+
+        if(Hash::check($oldPassword, Auth::user()->password))
+            {
+                $id = Auth::user()->id;
+                $user = User::findOrFail($id);   
+                $user->password = $password;
+                $user->save();
+
+               return back()->with('succes','mot de passe modifé.');
+            }else
+            {
+               return back()->with('erreur','Le mot de passe saissie ne correspond pas.'); 
+            }
     }
 }

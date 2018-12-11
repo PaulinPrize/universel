@@ -23,7 +23,7 @@ Route::group(['middleware' => 'revalidate'], function(){
 		Route::post('role/store','RoleController@store')->name('role.store')
 		->middleware('permission:role.create');
 
-		Route::get('role','RoleController@index')->name('role.index')
+		Route::get('role/index','RoleController@index')->name('role.index')
 		->middleware('permission:role.index');
 
 		Route::get('role/create','RoleController@create')->name('role.create')
@@ -45,12 +45,12 @@ Route::group(['middleware' => 'revalidate'], function(){
 		->middleware('permission:role.edit');
 
 		// Utilisateurs
-		Route::get('tableau-de-bord', 'UserController@accueilUser')->name('tableau-de-bord')
+		Route::get('user/tableau-de-bord', 'UserController@accueilUser')->name('user.tableau-de-bord')
 		->middleware('permission:user.tableau-de-bord');
 
 		Route::post('/updateImage','ImageController@updateCouverture')->name('updateImage');
 
-		Route::get('user','UserController@index')->name('user.index')
+		Route::get('user/index','UserController@index')->name('user.index')
 		->middleware('permission:user.index');
 
 		Route::get('user/create','UserController@create')->name('user.create')
@@ -71,14 +71,21 @@ Route::group(['middleware' => 'revalidate'], function(){
 		Route::put('user/update/{id}','UserController@update')->name('user.update')
 		->middleware('permission:user.edit');
 
-		Route::get('profil', 'UserController@profil')->name('profil')
-		->middleware('permission:profil');
+		Route::get('user/profil', 'UserController@profil')->name('user.profil')
+		->middleware('permission:user.profil');
 
-		Route::POST('profil', 'UserController@userUpdateProfil')->name('profil')
-		->middleware('permission:profil');
+		Route::post('user/update', 'UserController@profilUpdate')->name('user.update')
+		->middleware('permission:user.profil');		
 
-		Route::get('password','UserController@changePassword')->name('password')
-		->middleware('permission:password');
+		Route::POST('user/profil', 'UserController@userUpdateProfil')->name('user.profil')
+		->middleware('permission:user.profil');
+
+		Route::get('user/password','UserController@password')->name('user.password')
+		->middleware('permission:user.password');
+
+		Route::post('user/password','UserController@changePassword')->name('user.password')
+		->middleware('permission:user.password');
+		
 	});
 });
 
@@ -87,11 +94,16 @@ Route::group(['middleware' => 'revalidate'], function(){
 Route::name('auth.resend_confirmation')->get('/register/confirm/resend', 'Auth\RegisterController@resendConfirmation');
 Route::name('auth.confirm')->get('/register/confirm/{confirmation_code}', 'Auth\RegisterController@confirm');
 
+/* Route de redirection vers le formulaire de connexion Facebook */
 Route::get('login/facebook', 'Auth\LoginController@redirectToFacebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleFacebookCallback');
 
+/* Route de redirection vers le formulaire de connexion GitHub */
 Route::get('login/github', 'Auth\LoginController@redirectToGithub');
 Route::get('login/github/callback', 'Auth\LoginController@handleGithubCallback');
 
+/* Route de redirection vers le formulaire de connexion Google */
 Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
+
+

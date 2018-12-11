@@ -53,13 +53,13 @@ class PermissionsTableSeeder extends Seeder
         // Donner à un utilisateur la permission de voir son profil
         Permission::create([
             'name' => 'Voir son prfil',
-            'slug' => 'profil',
+            'slug' => 'user.profil',
             'description' => 'Voir son prfil',
         ]);
         // Donner à un utilisateur la permission de modifier son mot de passe
         Permission::create([
             'name' => 'Modifier son mot de passe',
-            'slug' => 'password',
+            'slug' => 'user.password',
             'description' => 'Modifier son mot de passe',
         ]);
 

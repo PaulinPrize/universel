@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Requests;
-use App\Http\Requests\Request;
+
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class ChangePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,9 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->user;
         return [
-            'name' => 'required|string|max:255:users,name,' . $id,
-            'password' => 'same:confirmer',
-            'confirmer' => ''
+            'password' => 'min:6|required_with:confirm|same:confirmer',
+            'confirmer' => 'min:6'
         ];
     }
 }
-
